@@ -11,3 +11,7 @@ a {
 a:hover {
   color: gray;
 }
+
+* {
+  box-sizing: border-box;
+}

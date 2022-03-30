@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route, Navigate} from "react-router-dom";
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -49,12 +49,23 @@ class App extends React.Component {
         <Routes>
           <Route path='/' element= {<HomePage />} />
           <Route path='/shop' element= {<ShopPage />} />
-          <Route path='/signin' element={<SignInAndSignOut />} />
+          <Route path='/signin' render= {() => 
+              this.props.currentUser ? (
+                <Navigate to = "/" />
+              ) : (
+                <SignInAndSignOut />
+              )
+            }
+          />
         </Routes>
       </div> 
     );
   }
 }
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))

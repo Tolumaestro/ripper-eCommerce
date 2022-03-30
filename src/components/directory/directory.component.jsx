@@ -17,10 +17,10 @@ class Directory extends React.Component {
               linkUrl: 'shop/caps'
             },
             {
-              title: 'tops',
+              title: 'shirts',
               imageUrl: "https://drive.google.com/uc?export=view&id=1JKetSjBXj_ZIToGisYoBGj04hzDsoKxi" ,
               id: 2,
-              linkUrl: 'shop/tops'
+              linkUrl: 'shop/shirts'
             },
             {
               title: 'pants',

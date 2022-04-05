@@ -49,14 +49,8 @@ class App extends React.Component {
         <Routes>
           <Route path='/' element= {<HomePage />} />
           <Route path='/shop' element= {<ShopPage />} />
-          <Route path='/signin' render= {() => 
-              this.props.currentUser ? (
-                <Navigate to = "/" />
-              ) : (
-                <SignInAndSignOut />
-              )
-            }
-          />
+
+          <Route path='/signin' element = { this.props.currentUser ? (<Navigate to= "/" />) : <SignInAndSignOut /> } />
         </Routes>
       </div> 
     );
@@ -71,4 +65,4 @@ const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

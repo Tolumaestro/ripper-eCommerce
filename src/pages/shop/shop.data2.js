@@ -7,7 +7,7 @@ const SHOP_DATA = [
         items: [ 
             {
                 id: 21,
-                name: 'Purple Revolution',
+                name: 'First Revolution',
                 imageUrl: 'https://drive.google.com/uc?export=view&id=1JKetSjBXj_ZIToGisYoBGj04hzDsoKxi',
                 price: 2500
             },

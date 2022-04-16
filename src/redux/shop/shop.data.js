@@ -128,9 +128,9 @@ const SHOP_DATA = [
               price: 2500
           },
           {
-              id: 12,
-              name: 'Pink Cap',
-              imageUrl: 'https://drive.google.com/uc?export=view&id=1yBScTzLXkv4-uyUHXS76isWBuhXgv8pj',
+            id: 11,
+              name: 'Black Cap',
+              imageUrl: 'https://drive.google.com/uc?export=view&id=1tLDVeabY1-rVgyYPK3BKMKhV0aT3C7rU',
               price: 2500
           },
         ]

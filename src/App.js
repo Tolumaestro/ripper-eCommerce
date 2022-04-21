@@ -11,6 +11,7 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignOut from './pages/sign-in-and-sign-out/sign-in-and-sign-out.component';
 import CheckoutPage from './pages/checkout/checkout.component';
+import Payment from './pages/payment/payment.component';
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils"
 
@@ -57,6 +58,7 @@ class App extends React.Component {
           <Route path='/checkout' element= {<CheckoutPage />} />
 
           <Route path='/signin' element = { this.props.currentUser ? (<Navigate to= "/" />) : <SignInAndSignOut /> } />
+          <Route path='/payment' element= {<Payment />} />
         </Routes>
       </div> 
     );

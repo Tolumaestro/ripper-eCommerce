@@ -6,24 +6,31 @@ import { createStructuredSelector } from "reselect";
 
 import "./collection.styles.scss"
 
-import collectionItem from "../../components/collection-item/collection-item";
 import { selectCollection } from "../../redux/shop/shop.selector";
+import CollectionItem from "../../components/collection-item/collection-item";
 
 
 
 const CollectionPage = () => {
-
     const { collectionId } = useParams()
 
-    const items = useSelector((state) => state.shop.collections.filter(
-        section => section.routeName === collectionId
-    )[0]);
+    const collection = useSelector((state => state.shop.collections[collectionId] ))
 
-    console.log(items)
+    console.log(collection);
+
+    const { title, items } = collection
+
 
     return (
-        <div className="category">
-            <h2>Category Page</h2>
+        <div className="collection-page">
+            <h2 className="title">{ title }</h2>
+            <div className="items">
+                {
+                    items.map(item => (
+                        <CollectionItem key={item.id} item={item} />
+                    ))
+                }
+            </div>
         </div>
     )
 }

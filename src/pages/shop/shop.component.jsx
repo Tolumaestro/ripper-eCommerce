@@ -18,6 +18,8 @@ const ShopPage = () => {
             <Routes>
                 <Route path="" element={<CollectionsOverview />} />
                 <Route path={`/:collectionId`} element={<CollectionPage />} />
+                <Route path={`*`} element={<h1>PAGE NOT FOUND</h1>} />
+
             </Routes>
             
         </div>

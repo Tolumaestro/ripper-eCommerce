@@ -3,7 +3,6 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { PaystackButton } from "react-paystack";
 
@@ -12,23 +11,12 @@ import { selectCartTotal } from "../../redux/cart/cart.selectors";
 
 import './payment.styles.scss'
 
-const Payment = ({ total }) => {
-
-    const getUsername = async state => {
-      const result = await state.user.currentUser.displayName
-      return result
-    }
-
-    const userName = useSelector( state => getUsername(state))
-    console.log(userName);
-    // const userName = useSelector( async state =>  await state.user.currentUser.displayName)
-    const userEmail = useSelector( async state => await state.user.currentUser.email)
-    
+const Payment = ({ total }) => {   
 
     const publicKey = "pk_test_02478df80f5a281efbcf42c2e23ac6d6617ce570"
     const amount = total * 100;
-    const [email, setEmail] = useState(userEmail)
-    const [name, setName] = useState(userName)
+    const [email, setEmail] = useState("")
+    const [name, setName] = useState("")
     const [phone, setPhone] = useState("")
     const [address, setAddress] = useState("")
     const [info, setInfo] = useState("")
@@ -45,8 +33,8 @@ const Payment = ({ total }) => {
         publicKey,
         text: "Pay Now",
         onSuccess: () =>
-          alert("Thanks for doing business with us! Come back soon!!"),
-        onClose: () => alert("Wait! Don't leave :("),
+          console.log("Thanks for doing business with us! Come back soon!!"),
+        onClose: () => console.log("Wait! Don't leave :("),
     }
 
     return (
@@ -60,7 +48,7 @@ const Payment = ({ total }) => {
                   alt="logo"
                 />
                 <div className="item-details">
-                  <p className="item-details__title">Your total is</p>
+                  <p className="item-details__title">Your total is:</p>
                   <p className="item-details__amount">&#8358;{ total }</p>
                 </div>
             </div>
@@ -69,7 +57,6 @@ const Payment = ({ total }) => {
                       <div className="checkout-field">
                           <label>Name</label>
                           <input
-                            value={userName}
                             type="text"
                             id="name"
                             onChange={(e) => setName(e.target.value)}
@@ -78,7 +65,6 @@ const Payment = ({ total }) => {
                       <div className="checkout-field">
                           <label>Email</label>
                           <input
-                            value={userEmail}
                             type="text"
                             id="email"
                             onChange={(e) => setEmail(e.target.value)}

@@ -10,6 +10,8 @@ import './collections-overview.styles.scss'
 
 const CollectionOverview = ({ collections }) => {
 
+
+    console.log(collections);
     return(
         <div className="shop-page">
             {

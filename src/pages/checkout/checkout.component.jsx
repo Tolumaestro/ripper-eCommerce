@@ -28,6 +28,9 @@ const CheckoutPage= ({ cartItems, total, user }) => {
                 <span>Quantity</span>
             </div>
             <div className="header-block">
+                <span>Size</span>
+            </div>
+            <div className="header-block">
                 <span>Price</span>
             </div>
             <div className="header-block">
@@ -44,7 +47,7 @@ const CheckoutPage= ({ cartItems, total, user }) => {
             <span>TOTAL: &#8358;{total}</span>
         </div>
 
-        <CustomButton onClick={ () => {user ? navigate("/payment") : navigate("/signin") } } >Pay Now</CustomButton>
+        <CustomButton onClick={ () => {user && total !== 0 ? navigate("/payment") : navigate("/signin") } } >Pay Now</CustomButton>
     </div>
 )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -13,7 +13,6 @@ import CollectionItem from "../../components/collection-item/collection-item";
 
 const CollectionPage = () => {
     const { collectionId } = useParams()
-
     const collection = useSelector((state => state.shop.collections[collectionId] ))
 
     console.log(collection);

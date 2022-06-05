@@ -2,16 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { useSelector } from "react-redux";
 
 import { PaystackButton } from "react-paystack";
 
-import { selectCartTotal } from "../../redux/cart/cart.selectors";
-
+import { selectCartTotal, selectCartItems } from "../../redux/cart/cart.selectors";
 
 import './payment.styles.scss'
 
-const Payment = ({ total }) => {   
+import { useNavigate } from "react-router-dom";
+
+const Payment = ({ total, cartItems }) => {   
 
     const publicKey = "pk_test_02478df80f5a281efbcf42c2e23ac6d6617ce570"
     const amount = total * 100;
@@ -20,20 +20,46 @@ const Payment = ({ total }) => {
     const [phone, setPhone] = useState("")
     const [address, setAddress] = useState("")
     const [info, setInfo] = useState("")
+    const navigate = useNavigate()
 
     const componentProps = {
         email,
         amount,
         metadata: {
-          name,
-          phone,
-          address,
-          info
+          "custom_fields": [
+            {
+              "display_name":"Name",
+              "variable_name":"Name",
+              "value": name
+            },
+            {
+              "display_name":"Phone Number",
+              "variable_name":"Phone Number",
+              "value": phone
+            },
+            {
+              "display_name":"Address",
+              "variable_name":"Address",
+              "value": address
+            },
+            {
+              "display_name":"Info",
+              "variable_name":"Info",
+              "value": info
+            },
+            {
+              "display_name":"Cart Items",
+              "variable_name":"Cart Items",
+              "value": cartItems
+            }
+          ]
         },
         publicKey,
         text: "Pay Now",
-        onSuccess: () =>
-          console.log("Thanks for doing business with us! Come back soon!!"),
+        onSuccess: () => {
+          console.log("Thanks for doing business with us! Come back soon!!");
+          navigate("/")
+        },
         onClose: () => console.log("Wait! Don't leave :("),
     }
 
@@ -103,6 +129,7 @@ const Payment = ({ total }) => {
 
 const mapStateToProps = createStructuredSelector({
   total: selectCartTotal,
+  cartItems: selectCartItems
 })
 
 export default connect(mapStateToProps)(Payment);

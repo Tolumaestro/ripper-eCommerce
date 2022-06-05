@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Routes, Route, Navigate} from "react-router-dom";
 import { connect } from 'react-redux';
@@ -18,14 +18,11 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils"
 import { setCurrentUser } from "./redux/user/user.actions"
 import { selectCurrentUser } from "./redux/user/user.selectors"
 
-class App extends React.Component {
+const App = ({ setCurrentUser, currentUser }) => {
+  useEffect(() => {
+    let unsubscribeFromAuth = null;
 
-  unsubscribeFromAuth = null;
-
-  componentDidMount(){
-    const { setCurrentUser } = this.props
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+    unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
       if(userAuth){
         const userRef = await createUserProfileDocument(userAuth);
 
@@ -37,30 +34,27 @@ class App extends React.Component {
         })
       } 
       
-      setCurrentUser(userAuth)
-      
+      setCurrentUser(userAuth) 
     })
-  }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth()
-  }
+    return () => {
+      unsubscribeFromAuth()
+    }
+  }, [setCurrentUser])
   
-  render(){
-    return (
-      <div>
-        <Header/>
-        <Routes>
-          <Route path='/' element= {<HomePage />} />
-          <Route path='/shop/*' element= {<ShopPage />} />
-          <Route path='/checkout' element= {<CheckoutPage />} />
+  return (
+    <div>
+      <Header/>
+      <Routes>
+        <Route path='/' element= {<HomePage />} />
+        <Route path='/shop/*' element= {<ShopPage />} />
+        <Route path='/checkout' element= {<CheckoutPage />} />
 
-          <Route path='/signin' element = { this.props.currentUser ? (<Navigate to= "/" />) : <SignInAndSignOut /> } />
-          <Route path='/payment' element= {<Payment />} />
-        </Routes>
-      </div> 
-    );
-  }
+        <Route path='/signin' element = {currentUser ? (<Navigate to= "/" />) : <SignInAndSignOut /> } />
+        <Route path='/payment' element= {<Payment />} />
+      </Routes>
+    </div> 
+  );
 }
 
 const mapStateToProps = createStructuredSelector({

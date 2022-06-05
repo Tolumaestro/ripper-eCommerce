@@ -1,8 +1,7 @@
 import React from "react";
 import {
     useLocation,
-    useNavigate,
-    useParams
+    useNavigate
   } from "react-router-dom";
 
 import "./menu-item.styles.scss"

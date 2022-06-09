@@ -1,6 +1,7 @@
 import React from "react";
 
 import CollectionItem from "../collection-item/collection-item";
+import CustomButton from "../custom-button/custom-button.component";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import './collection-preview.styles.scss'
@@ -12,7 +13,7 @@ const CollectionPreview = ({title, items, routeName}) => {
 
     return(
         <div className="collection-preview">
-        <h1 className="title"  onClick = {() => navigate(`${pathname}/${routeName}`)} >{title.toUpperCase()}</h1> 
+        <h1 className="title" >{title.toUpperCase()}</h1> 
         <div className="preview">
                 {
                     items
@@ -21,7 +22,10 @@ const CollectionPreview = ({title, items, routeName}) => {
                         <CollectionItem key={item.id} item={item}/>
                     ))
                 }
-
+        </div>
+        
+        <div className="see">
+            <CustomButton onClick = {() => navigate(`${pathname}/${routeName}`)} > SEE MORE </CustomButton>
         </div>
         </div>
     )

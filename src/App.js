@@ -4,14 +4,14 @@ import { Routes, Route, Navigate} from "react-router-dom";
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import './App.css';
-
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignOut from './pages/sign-in-and-sign-out/sign-in-and-sign-out.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import Payment from './pages/payment/payment.component';
+
+import { GlobalStyle } from './global.styles';
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils"
 
@@ -44,6 +44,7 @@ const App = ({ setCurrentUser, currentUser }) => {
   
   return (
     <div>
+      <GlobalStyle />
       <Header/>
       <Routes>
         <Route path='/' element= {<HomePage />} />

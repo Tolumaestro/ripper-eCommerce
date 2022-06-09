@@ -21,7 +21,8 @@ const SignIn = () => {
 
             setUserCredential({email: "", password: ""});
         } catch(error){
-            console.log(error);
+            alert(error.code);
+            return;
         }
 
         setUserCredential({email: "", password:""})
@@ -38,34 +39,34 @@ const SignIn = () => {
 
     return (
         <div className="sign-in">
-        <h2>I already have an account</h2>
-        <span>Sign in with your email and password</span>
+            <h2>I already have an account</h2>
+            <span>Sign in with your email and password</span>
 
-        <form onSubmit={handleSubmit}>
-            <FormInput name="email"
-            type="email" 
-            value={email} 
-            onChange={handleChange} 
-            label= "Email"
-            required 
-            /> 
-            
+            <form onSubmit={handleSubmit}>
+                <FormInput name="email"
+                type="email" 
+                value={email} 
+                onChange={handleChange} 
+                label= "Email"
+                required 
+                /> 
+                
 
-            <FormInput 
-            name="password" 
-            type="password" 
-            value={password} 
-            onChange={handleChange} 
-            label="Password"
-            required 
-            /> 
-            
-            <div className="buttons">
-                <CustomButton type="submit"> Sign in </CustomButton>
-                <CustomButton onClick= {signInWithGoogle} isGoogleSignIn>Sign in with google </CustomButton>
-            </div>
+                <FormInput 
+                name="password" 
+                type="password" 
+                value={password} 
+                onChange={handleChange} 
+                label="Password"
+                required 
+                /> 
+                
+                <div className="buttons">
+                    <CustomButton type="submit"> Sign in </CustomButton>
+                    <CustomButton onClick= {signInWithGoogle} isGoogleSignIn>Sign in with google </CustomButton>
+                </div>
 
-        </form>
+            </form>
         </div>
 
     )

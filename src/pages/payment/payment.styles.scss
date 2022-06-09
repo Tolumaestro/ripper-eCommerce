@@ -13,9 +13,18 @@
     background: white;
     box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
 
+    @media screen and (max-width: 800px) {
+      width: 300px;
+      margin-top: 50px;
+    }
+
     .item {
       width: 50%;
       position: relative;
+
+      @media screen and (max-width: 800px) {
+        display: none;
+      }
 
       .item-image {
         height: 100%;
@@ -58,6 +67,10 @@
       justify-content: center;
       height: 100%;
       width: 50%;
+
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
 
 
       .checkout-form {

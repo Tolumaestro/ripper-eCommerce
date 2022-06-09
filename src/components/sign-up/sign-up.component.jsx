@@ -38,7 +38,8 @@ const SignUp = () => {
                 confirmPassword: ''
             } )
         } catch(error){
-            console.error(error)
+            alert(error.code);
+            return;
         }
     };
 
@@ -57,6 +58,7 @@ const SignUp = () => {
                 I do not have an account
             </h2>
             <span>Sign up with your email and password</span>
+            <span className="error"></span>
             <form className="sign-up-form" onSubmit={handleSubmit}>
                 <FormInput 
                     type="text"

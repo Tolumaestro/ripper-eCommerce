@@ -20,12 +20,16 @@ const SignIn = () => {
             await auth.signInWithEmailAndPassword(email, password);
 
             setUserCredential({email: "", password: ""});
+            
         } catch(error){
+            
             alert(error.code);
             return;
         }
 
+
         setUserCredential({email: "", password:""})
+        alert("Signed in successfully")
     }
 
     const handleChange = event => {

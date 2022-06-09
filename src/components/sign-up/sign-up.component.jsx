@@ -37,6 +37,8 @@ const SignUp = () => {
                 password: '',
                 confirmPassword: ''
             } )
+
+            alert("Signed up successfully")
         } catch(error){
             alert(error.code);
             return;

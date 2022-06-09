@@ -45,6 +45,7 @@
   }
 
   @media screen and (max-width: 800px) {
-    padding: 0
+    padding: 0 10px;
+    min-width: 120px
   }
 }

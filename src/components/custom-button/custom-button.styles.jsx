@@ -1,46 +1,45 @@
-import styled, { css } from "styled-components"
+import styled, { css } from "styled-components";
 
-const buttonStyles = css`
-    background-color: black;
-    color: white;
-    border: none;
+const buttonStyles = css `
+  background-color: black;
+  color: white;
+  border: none;
 
-    &:hover {
-        background-color: white;
-        color: black;
-        border: 1px solid black;
-    }
-`
-
-const invertedButtonStyles = css`
+  &:hover {
     background-color: white;
     color: black;
     border: 1px solid black;
+  } 
+`;
 
-    &:hover{
-      background-color: black;
-      color: white;
-      border: none;
-    }
-`
+const invertedButtonStyles = css`
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 
-const googleSignInStyles = css`
-    background-color: #4285f4;
+  &:hover{
+    background-color: black;
     color: white;
     border: none;
+  }
+`;
 
-    &:hover {
-      background-color: #357ae8;
-      border: none;
-    }
-`
+const googleSignInStyles = css`
+  background-color: #666;
+  color: white;
+  border: none;
+
+  &:hover {
+    background-color: #bdc1c6;
+  }
+`;
 
 const getButtonStyles = props => {
-    if(props.isGoogleSignIn) {
-        return googleSignInStyles
-    }
+  if(props.isGoogleSignIn ){
+    return googleSignInStyles;
+  }
 
-    return props.inverted ? invertedButtonStyles : buttonStyles
+  return props.inverted ? invertedButtonStyles : buttonStyles;
 }
 
 export const CustomButtonContainer = styled.button`
@@ -58,9 +57,10 @@ export const CustomButtonContainer = styled.button`
   display: flex;
   justify-content: center;
 
-  @media screen and (max-width: 800px) {
-    padding: 0
-  }
-
   ${getButtonStyles}
+
+  @media screen and (max-width: 800px) {
+    padding: 0 10px;
+    min-width: 120px
+  }
 `

@@ -14,6 +14,10 @@ export const removeItem = item => ({
     payload:item
 })
 
+export const removeAllItems = () => ({
+    type: CartActionTypes.REMOVE_ALL_ITEMS
+})
+
 export const clearItemFromCart = item => ({
     type: CartActionTypes.CLEAR_ITEM_FROM_CART,
     payload: item

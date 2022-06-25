@@ -6,12 +6,13 @@ import { createStructuredSelector } from "reselect";
 import { PaystackButton } from "react-paystack";
 
 import { selectCartTotal, selectCartItems } from "../../redux/cart/cart.selectors";
+import { removeAllItems } from "../../redux/cart/cart.actions";
 
 import './payment.styles.scss'
 
 import { useNavigate } from "react-router-dom";
 
-const Payment = ({ total, cartItems }) => {   
+const Payment = ({ total, cartItems, dispatch }) => {   
 
     const publicKey = "pk_test_02478df80f5a281efbcf42c2e23ac6d6617ce570"
     const amount = total * 100;
@@ -58,7 +59,9 @@ const Payment = ({ total, cartItems }) => {
         text: "Pay Now",
         onSuccess: () => {
           console.log("Thanks for doing business with us! Come back soon!!");
+          dispatch(removeAllItems())
           navigate("/")
+
         },
         onClose: () => console.log("Wait! Don't leave :("),
     }

@@ -1,6 +1,6 @@
 import React from "react";
 
-import CollectionItem from "../collection-item/collection-item";
+import CollectionItem from "../collection-item/collection-item.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 import { useNavigate, useLocation } from "react-router-dom";

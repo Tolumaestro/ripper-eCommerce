@@ -24,9 +24,13 @@
       .header-block {
         text-transform: capitalize;
         width: 19%;
+
+        &:nth-child(5){
+          width: 17%;
+        }
   
         &:last-child {
-          width: 5%;
+          width: 7%;
         }
       }
     }

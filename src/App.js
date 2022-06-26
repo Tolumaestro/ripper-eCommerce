@@ -33,8 +33,8 @@ const App = ({ setCurrentUser, currentUser }) => {
           });
         })
       } 
-      
       setCurrentUser(userAuth) 
+
     })
 
     return () => {

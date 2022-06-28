@@ -19,11 +19,11 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem, increaseSize, 
                 <span>{quantity}</span>
                 <div onClick={() => addItem(cartItem) }> &#10095;</div>
             </SpecialItemProp>
-            <span className="size">
+            <SpecialItemProp>
                 <div onClick={() => decreaseSize(cartItem) }> &#10094;</div>
                 <span>{size}</span>
                 <div onClick={() => increaseSize(cartItem) }> &#10095;</div>
-            </span>
+            </SpecialItemProp>
             <ItemProp>&#8358;{price}</ItemProp>
             <RemoveButton onClick={() => clearItem(cartItem)}>&#10005;</RemoveButton>
         </CheckoutItemContainer>

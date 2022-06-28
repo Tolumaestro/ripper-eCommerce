@@ -30,6 +30,7 @@ export const ItemProp = styled.span`
 
 export const SpecialItemProp = styled(ItemProp)`
     display: flex;
+    justify-content: center;
 
     div{
         cursor: pointer;

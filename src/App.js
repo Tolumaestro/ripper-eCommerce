@@ -9,38 +9,22 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignOut from './pages/sign-in-and-sign-out/sign-in-and-sign-out.component';
 import CheckoutPage from './pages/checkout/checkout.component';
-import Payment from './pages/payment/payment.component';
 
 import { GlobalStyle } from './global.styles';
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils"
-
-import { setCurrentUser } from "./redux/user/user.actions"
+import { fetchCurrentUserStartAsync } from "./redux/user/user.actions"
 import { selectCurrentUser } from "./redux/user/user.selectors"
+import { selectIsCurrentUserFetching } from './redux/user/user.selectors';
 
-const App = ({ setCurrentUser, currentUser }) => {
+import WithSpinner from './components/with-spinner/with-spinner.component';
+import Payment from "./pages/payment/payment.component"
+
+const App = ({ fetchCurrentUserStartAsync, currentUser, isCurrentUserFetching }) => {
   useEffect(() => {
-    let unsubscribeFromAuth = null;
+    fetchCurrentUserStartAsync()
+  }, [fetchCurrentUserStartAsync]);
 
-    unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
-      if(userAuth){
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot(snapShot => {
-            setCurrentUser({
-              id: snapShot.id,
-              ...snapShot.data()
-          });
-        })
-      } 
-      setCurrentUser(userAuth) 
-
-    })
-
-    return () => {
-      unsubscribeFromAuth()
-    }
-  }, [setCurrentUser])
+  const PaymentWithSpinner = WithSpinner(Payment)
   
   return (
     <div>
@@ -52,18 +36,19 @@ const App = ({ setCurrentUser, currentUser }) => {
         <Route path='/checkout' element= {<CheckoutPage />} />
 
         <Route path='/signin' element = {currentUser ? (<Navigate to= "/" />) : <SignInAndSignOut /> } />
-        <Route path='/payment' element= {<Payment />} />
+        <Route path='/payment' element= {<PaymentWithSpinner isLoading={isCurrentUserFetching} />} />
       </Routes>
     </div> 
   );
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  isCurrentUserFetching: selectIsCurrentUserFetching
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  fetchCurrentUserStartAsync: user => dispatch(fetchCurrentUserStartAsync(user))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

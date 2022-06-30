@@ -15,6 +15,10 @@ const SignUp = () => {
         password: '',
         confirmPassword: ''}
     )
+
+    const [message, setMessage] = useState("")
+    const [messageClass, setMessageClass] = useState("")
+
     
     const { displayName, email, password, confirmPassword} = newUser;
 
@@ -22,7 +26,12 @@ const SignUp = () => {
         event.preventDefault();
 
         if(password !== confirmPassword) {
-            alert("passwords don't match");
+            setTimeout(function(){
+                setMessage("")
+                setMessageClass('')
+            }, 1500)
+            setMessage("Passwords don't match");
+            setMessageClass("error")
             return;
         }
 
@@ -38,9 +47,18 @@ const SignUp = () => {
                 confirmPassword: ''
             } )
 
-            alert("Signed up successfully")
+            setTimeout(function(){
+                setMessage("")
+                setMessageClass('')
+            }, 1500)
+            setMessage("Signed up successfully")
+            setMessageClass("success")
+            
         } catch(error){
-            alert(error.code);
+            
+            setMessage(error.message)
+            setMessageClass("error")
+
             return;
         }
     };
@@ -60,7 +78,7 @@ const SignUp = () => {
                 I do not have an account
             </h2>
             <span>Sign up with your email and password</span>
-            <span className="error"></span>
+            <span className={messageClass}>{ message }</span>
             <form className="sign-up-form" onSubmit={handleSubmit}>
                 <FormInput 
                     type="text"

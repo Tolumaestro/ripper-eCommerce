@@ -9,7 +9,9 @@ import "./sign-in.styles.scss"
 
 const SignIn = () => {
 
-    const [userCredential, setUserCredential] = useState({ email: '', password: '' })
+    const [userCredential, setUserCredential] = useState({ email: '', password: '' });
+    const [message, setMessage] = useState("")
+    const [messageClass, setMessageClass] = useState("")
 
     const { email, password } = userCredential;
     
@@ -22,14 +24,17 @@ const SignIn = () => {
             setUserCredential({email: "", password: ""});
             
         } catch(error){
-            
-            alert(error.code);
+            setTimeout(function(){
+                setMessage("")
+                setMessageClass("")
+            }, 1500)
+            setMessage(error.message)
+            setMessageClass("error")
             return;
         }
 
 
         setUserCredential({email: "", password:""})
-        alert("Signed in successfully")
     }
 
     const handleChange = event => {
@@ -45,6 +50,7 @@ const SignIn = () => {
         <div className="sign-in">
             <h2>I already have an account</h2>
             <span>Sign in with your email and password</span>
+            <span className={messageClass}>{ message }</span>
 
             <form onSubmit={handleSubmit}>
                 <FormInput name="email"
@@ -67,7 +73,10 @@ const SignIn = () => {
                 
                 <div className="buttons">
                     <CustomButton type="submit"> Sign in </CustomButton>
-                    <CustomButton onClick= {signInWithGoogle} isGoogleSignIn>Sign in with google </CustomButton>
+                    <CustomButton onClick= {() => { 
+                        setUserCredential({email: "", password:""});
+                        signInWithGoogle()
+                    }} isGoogleSignIn>Sign in with google </CustomButton>
                 </div>
 
             </form>

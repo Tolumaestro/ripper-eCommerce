@@ -6,18 +6,20 @@ import { createStructuredSelector } from "reselect";
 import { PaystackButton } from "react-paystack";
 
 import { selectCartTotal, selectCartItems } from "../../redux/cart/cart.selectors";
+import { selectCurrentUserName, selectCurrentUserEmail } from "../../redux/user/user.selectors";
 import { removeAllItems } from "../../redux/cart/cart.actions";
+
 
 import './payment.styles.scss'
 
 import { useNavigate } from "react-router-dom";
 
-const Payment = ({ total, cartItems, dispatch }) => {   
+const Payment = ({ total, cartItems, userName, userEmail, dispatch }) => {  
 
     const publicKey = "pk_test_02478df80f5a281efbcf42c2e23ac6d6617ce570"
     const amount = total * 100;
-    const [email, setEmail] = useState("")
-    const [name, setName] = useState("")
+    const [email, setEmail] = useState(userEmail)
+    const [name, setName] = useState(userName)
     const [phone, setPhone] = useState("")
     const [address, setAddress] = useState("")
     const [info, setInfo] = useState("")
@@ -88,6 +90,7 @@ const Payment = ({ total, cartItems, dispatch }) => {
                           <input
                             type="text"
                             id="name"
+                            value={name ? name : ""}
                             onChange={(e) => setName(e.target.value)}
                           />
                       </div>
@@ -96,6 +99,7 @@ const Payment = ({ total, cartItems, dispatch }) => {
                           <input
                             type="text"
                             id="email"
+                            value={ email ? email : "" }
                             onChange={(e) => setEmail(e.target.value)}
                           />
                       </div>
@@ -132,7 +136,9 @@ const Payment = ({ total, cartItems, dispatch }) => {
 
 const mapStateToProps = createStructuredSelector({
   total: selectCartTotal,
-  cartItems: selectCartItems
+  cartItems: selectCartItems,
+  userName: selectCurrentUserName,
+  userEmail: selectCurrentUserEmail
 })
 
 export default connect(mapStateToProps)(Payment);

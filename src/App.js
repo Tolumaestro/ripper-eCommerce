@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Routes, Route, Navigate} from "react-router-dom";
 import { connect } from 'react-redux';
@@ -11,18 +11,13 @@ import SignInAndSignOut from './pages/sign-in-and-sign-out/sign-in-and-sign-out.
 import CheckoutPage from './pages/checkout/checkout.component';
 
 import { GlobalStyle } from './global.styles';
-
-import { fetchCurrentUserStartAsync } from "./redux/user/user.actions"
 import { selectCurrentUser } from "./redux/user/user.selectors"
-import { selectIsCurrentUserFetching } from './redux/user/user.selectors';
 
 import WithSpinner from './components/with-spinner/with-spinner.component';
 import Payment from "./pages/payment/payment.component"
 
-const App = ({ fetchCurrentUserStartAsync, currentUser, isCurrentUserFetching }) => {
-  useEffect(() => {
-    fetchCurrentUserStartAsync()
-  }, [fetchCurrentUserStartAsync]);
+const App = ({ currentUser }) => {
+  
 
   const PaymentWithSpinner = WithSpinner(Payment)
   
@@ -36,19 +31,15 @@ const App = ({ fetchCurrentUserStartAsync, currentUser, isCurrentUserFetching })
         <Route path='/checkout' element= {<CheckoutPage />} />
 
         <Route path='/signin' element = {currentUser ? (<Navigate to= "/" />) : <SignInAndSignOut /> } />
-        <Route path='/payment' element= {<PaymentWithSpinner isLoading={isCurrentUserFetching} />} />
+        <Route path='/payment' element= {<PaymentWithSpinner  />} />
       </Routes>
     </div> 
   );
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  isCurrentUserFetching: selectIsCurrentUserFetching
+  currentUser: selectCurrentUser
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchCurrentUserStartAsync: user => dispatch(fetchCurrentUserStartAsync(user))
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

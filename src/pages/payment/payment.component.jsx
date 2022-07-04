@@ -9,12 +9,11 @@ import { selectCartTotal, selectCartItems } from "../../redux/cart/cart.selector
 import { selectCurrentUserName, selectCurrentUserEmail } from "../../redux/user/user.selectors";
 import { removeAllItems } from "../../redux/cart/cart.actions";
 
-
 import './payment.styles.scss'
 
 import { useNavigate } from "react-router-dom";
 
-const Payment = ({ total, cartItems, userName, userEmail, dispatch }) => {  
+const Payment = ({ total, cartItems, userName, userEmail, dispatch }) => { 
 
     const publicKey = "pk_test_02478df80f5a281efbcf42c2e23ac6d6617ce570"
     const amount = total * 100;

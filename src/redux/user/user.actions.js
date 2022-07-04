@@ -1,43 +1,23 @@
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils"
-import { UserActionTypes } from "./user.types";
+import UserActionTypes from "./user.types";
 
-export const fetchCurrentUserStart = () => ({
-    type: UserActionTypes.FETCH_CURRENT_USER_START
-});
+export const googleSignInStart = () => ({
+    type: UserActionTypes.GOOGLE_SIGN_IN_START
+}) 
 
-export const fetchCurrentUserSuccess = user => ({
-    type: UserActionTypes.FETCH_CURRENT_USER_SUCCESS,
+export const emailSignInStart = (emailandPassword) => ({
+    type: UserActionTypes.EMAIL_SIGN_IN_START,
+    payload: emailandPassword
+}) 
+
+export const signInSuccess = (user) => ({
+    type: UserActionTypes.SIGN_IN_SUCCESS,
     payload: user
-});
+}) 
 
-export const fetchCurrentUserFailure = errorMessage => ({
-    type: UserActionTypes.fetchCurrentUserFailure,
-    payload: errorMessage
-});
+export const signInFailure = error => ({
+    type: UserActionTypes.SIGN_IN_FAILURE,
+    payload: error
+})
 
-export const fetchCurrentUserStartAsync = () => {
-    return dispatch => {
-        let unsubscribeFromAuth = null;
-        dispatch(fetchCurrentUserStart())
 
-        unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
-        if(userAuth){
-            const userRef = await createUserProfileDocument(userAuth);
 
-            userRef.onSnapshot(snapShot => {
-                dispatch(fetchCurrentUserSuccess({
-                id: snapShot.id,
-                ...snapShot.data()
-            }));
-            })
-        } 
-        dispatch(fetchCurrentUserSuccess(userAuth) )
-
-        })
-
-        return () => {
-        unsubscribeFromAuth()
-        }
-
-    }    
-}

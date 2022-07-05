@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Routes, Route, Navigate} from "react-router-dom";
 import { connect } from 'react-redux';
@@ -13,11 +13,16 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import { GlobalStyle } from './global.styles';
 import { selectCurrentUser } from "./redux/user/user.selectors"
 
+import { checkUserSession } from './redux/user/user.actions';
+
 import WithSpinner from './components/with-spinner/with-spinner.component';
 import Payment from "./pages/payment/payment.component"
 
-const App = ({ currentUser }) => {
+const App = ({ currentUser, checkUserSession }) => {
   
+  useEffect(()=> {
+    checkUserSession()
+  }, [checkUserSession]);
 
   const PaymentWithSpinner = WithSpinner(Payment)
   
@@ -41,5 +46,9 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 })
 
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+})
 
-export default connect(mapStateToProps)(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
 
 import FormInput   from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { googleSignInStart, emailSignInStart } from "../../redux/user/user.actions";
+import { googleSignInStart, emailSignInStart, signInMessage } from "../../redux/user/user.actions";
+import { selectUserError } from "../../redux/user/user.selectors";
+import UserActionTypes from "../../redux/user/user.types"
+
+
 
 import "./sign-in.styles.scss"
 
-const SignIn = (props) => {
+const SignIn = ({ emailSignInStart, googleSignInStart, error, signInMessage}) => {
+
+    useEffect(()=>{
+        signInMessage()
+    },[signInMessage] )
 
     const [userCredential, setUserCredential] = useState({ email: '', password: '' });
+    const [message, setMessage] = useState("")
+    const [messageClass, setMessageClass] = useState("")
     
 
     const { email, password } = userCredential;
     
     const handleSubmit = async event => {
         event.preventDefault();
-        const { emailSignInStart } = props
         
         emailSignInStart(email, password)
+
+        if(UserActionTypes.SIGN_IN_MESSAGE){
+            setTimeout(function(){
+                setMessage(error);
+                setMessageClass("error")
+            }, 1500)
+            // console.log(error);
+            // setMessage(error);
+            // setMessageClass("error")
+            return; 
+        }
     }
 
     const handleChange = event => {
@@ -31,11 +53,10 @@ const SignIn = (props) => {
         })
     }
 
-    
-    const { googleSignInStart } = props
     return (
         <div className="sign-in">
             <h2>I already have an account</h2>
+            <span className={messageClass}>{ message }</span>
             <span>Sign in with your email and password</span>
 
             <form onSubmit={handleSubmit}>
@@ -69,11 +90,16 @@ const SignIn = (props) => {
     
 }
 
+const mapStateToProps = createStructuredSelector({
+    error: selectUserError
+})
+
 const mapDispatchToProps = dispatch => ({
     googleSignInStart: () => dispatch(googleSignInStart()),
     emailSignInStart: (email, password) => dispatch(emailSignInStart({
         email, password
-    }))
+    })),
+    signInMessage: () => dispatch(signInMessage())
 })
 
-export default connect(null, mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

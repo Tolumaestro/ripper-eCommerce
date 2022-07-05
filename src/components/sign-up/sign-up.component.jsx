@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { signUpStart } from "../../redux/user/user.actions";
+import { selectUserError } from "../../redux/user/user.selectors";
+import UserActionTypes from "../../redux/user/user.types"
 
 import "./sign-up.styles.scss";
 
-const SignUp = () => {
+const SignUp = ({ signUpStart, error, done }) => {
 
     const [newUser, setNewUser] = useState({
         displayName:'',
@@ -20,7 +24,7 @@ const SignUp = () => {
     const [messageClass, setMessageClass] = useState("")
 
     
-    const { displayName, email, password, confirmPassword} = newUser;
+    const { displayName, email, password, confirmPassword } = newUser;
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -35,31 +39,16 @@ const SignUp = () => {
             return;
         }
 
-        try{
-            const {user} = await auth.createUserWithEmailAndPassword( email, password );
+        
+        signUpStart({ displayName, email, password })
 
-            createUserProfileDocument(user, {displayName});
-
-            setNewUser({
-                displayName:'',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            } )
-
+        if(UserActionTypes.SIGN_UP_MESSAGE){
             setTimeout(function(){
-                setMessage("")
-                setMessageClass('')
-            }, 1500)
-            setMessage("Signed up successfully")
-            setMessageClass("success")
+                setMessage(error);
+                setMessageClass("error")
+            }, 500)
             
-        } catch(error){
-            
-            setMessage(error.message)
-            setMessageClass("error")
-
-            return;
+            return; 
         }
     };
 
@@ -120,4 +109,12 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+const mapStateToProps = createStructuredSelector({
+    error: selectUserError
+})
+
+const mapDispatchToProps = dispatch => ({
+    signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

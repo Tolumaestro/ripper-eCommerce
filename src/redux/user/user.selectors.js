@@ -7,6 +7,11 @@ export const selectCurrentUser =  createSelector(
     user => user.currentUser
 )
 
+export const selectUserError = createSelector(
+    [selectUser],
+    user => user.error
+)
+
 export const selectCurrentUserName = createSelector(
     [selectCurrentUser],
     currentUser => currentUser ? currentUser.displayName : ""

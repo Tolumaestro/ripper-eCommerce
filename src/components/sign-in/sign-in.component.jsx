@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -6,42 +6,20 @@ import { createStructuredSelector } from "reselect";
 import FormInput   from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { googleSignInStart, emailSignInStart, signInMessage } from "../../redux/user/user.actions";
-import { selectUserError } from "../../redux/user/user.selectors";
-import UserActionTypes from "../../redux/user/user.types"
-
-
-
+import { googleSignInStart, emailSignInStart } from "../../redux/user/user.actions";
+import { selectUserSignInError } from "../../redux/user/user.selectors";
 import "./sign-in.styles.scss"
 
-const SignIn = ({ emailSignInStart, googleSignInStart, error, signInMessage}) => {
-
-    useEffect(()=>{
-        signInMessage()
-    },[signInMessage] )
+const SignIn = ({ emailSignInStart, googleSignInStart, error}) => {
 
     const [userCredential, setUserCredential] = useState({ email: '', password: '' });
-    const [message, setMessage] = useState("")
-    const [messageClass, setMessageClass] = useState("")
+    const messageClass = "error"
     
-
     const { email, password } = userCredential;
     
     const handleSubmit = async event => {
         event.preventDefault();
-        
-        emailSignInStart(email, password)
-
-        if(UserActionTypes.SIGN_IN_MESSAGE){
-            setTimeout(function(){
-                setMessage(error);
-                setMessageClass("error")
-            }, 1500)
-            // console.log(error);
-            // setMessage(error);
-            // setMessageClass("error")
-            return; 
-        }
+        await emailSignInStart(email, password)
     }
 
     const handleChange = event => {
@@ -56,7 +34,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart, error, signInMessage}) =>
     return (
         <div className="sign-in">
             <h2>I already have an account</h2>
-            <span className={messageClass}>{ message }</span>
+            {error && <span className={messageClass}>{error}</span> }
             <span>Sign in with your email and password</span>
 
             <form onSubmit={handleSubmit}>
@@ -68,7 +46,6 @@ const SignIn = ({ emailSignInStart, googleSignInStart, error, signInMessage}) =>
                 required 
                 /> 
                 
-
                 <FormInput 
                 name="password" 
                 type="password" 
@@ -82,7 +59,6 @@ const SignIn = ({ emailSignInStart, googleSignInStart, error, signInMessage}) =>
                     <CustomButton type="submit"> Sign in </CustomButton>
                     <CustomButton type="button" onClick= {googleSignInStart} isGoogleSignIn>Sign in with google </CustomButton>
                 </div>
-
             </form>
         </div>
 
@@ -91,15 +67,14 @@ const SignIn = ({ emailSignInStart, googleSignInStart, error, signInMessage}) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    error: selectUserError
+    error: selectUserSignInError
 })
 
 const mapDispatchToProps = dispatch => ({
     googleSignInStart: () => dispatch(googleSignInStart()),
     emailSignInStart: (email, password) => dispatch(emailSignInStart({
         email, password
-    })),
-    signInMessage: () => dispatch(signInMessage())
+    }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

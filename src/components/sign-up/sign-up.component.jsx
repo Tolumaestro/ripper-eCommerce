@@ -6,8 +6,7 @@ import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 import { signUpStart } from "../../redux/user/user.actions";
-import { selectUserError } from "../../redux/user/user.selectors";
-import UserActionTypes from "../../redux/user/user.types"
+import { selectUserSignUpError } from "../../redux/user/user.selectors";
 
 import "./sign-up.styles.scss";
 
@@ -21,35 +20,20 @@ const SignUp = ({ signUpStart, error, done }) => {
     )
 
     const [message, setMessage] = useState("")
-    const [messageClass, setMessageClass] = useState("")
+    const messageClass = "error"
 
     
     const { displayName, email, password, confirmPassword } = newUser;
 
     const handleSubmit = async event => {
         event.preventDefault();
-
+        
         if(password !== confirmPassword) {
-            setTimeout(function(){
-                setMessage("")
-                setMessageClass('')
-            }, 1500)
             setMessage("Passwords don't match");
-            setMessageClass("error")
             return;
         }
-
         
         signUpStart({ displayName, email, password })
-
-        if(UserActionTypes.SIGN_UP_MESSAGE){
-            setTimeout(function(){
-                setMessage(error);
-                setMessageClass("error")
-            }, 500)
-            
-            return; 
-        }
     };
 
     const handleChange = event => {
@@ -67,7 +51,7 @@ const SignUp = ({ signUpStart, error, done }) => {
                 I do not have an account
             </h2>
             <span>Sign up with your email and password</span>
-            <span className={messageClass}>{ message }</span>
+            {error || message ? <span className={messageClass}>{ error } { message }</span> : ""}
             <form className="sign-up-form" onSubmit={handleSubmit}>
                 <FormInput 
                     type="text"
@@ -110,7 +94,7 @@ const SignUp = ({ signUpStart, error, done }) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-    error: selectUserError
+    error: selectUserSignUpError
 })
 
 const mapDispatchToProps = dispatch => ({

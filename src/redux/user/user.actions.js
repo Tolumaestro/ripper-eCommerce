@@ -51,14 +51,5 @@ export const signUpFailure = (error) => ({
     payload: error.message
 })
 
-export const signUpMessage = () => ({
-    type: UserActionTypes.SIGN_UP_MESSAGE
-})
-
-export const signInMessage = () => ({
-    type: UserActionTypes.SIGN_IN_MESSAGE
-})
-
-
 
 

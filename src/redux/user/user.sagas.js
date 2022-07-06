@@ -4,7 +4,7 @@ import UserActionTypes from "./user.types";
 
 import { auth, googleProvider, createUserProfileDocument, getCurrentUser } from "../../firebase/firebase.utils";
 
-import { signInSuccess, signInFailure, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess, signUpMessage, signInMessage } from "./user.actions";
+import { signInSuccess, signInFailure, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from "./user.actions";
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData){
     try{
@@ -17,6 +17,7 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData){
             })
         )
     } catch(error){
+        console.log(error);
         yield put(signInFailure(error))
     }
     
@@ -37,15 +38,6 @@ export function* signInWithEmail({ payload: { email, password } }){
         yield getSnapshotFromUserAuth(user)
     } catch(error){
         yield put(signInFailure(error));
-    }
-}
-
-export function* displayMessage(){
-    try{
-        yield delay(1000)
-        yield put(signInMessage())
-    } catch{
-
     }
 }
 
@@ -77,7 +69,6 @@ export function* signUp({ payload: { email, password, displayName } }){
         yield put(signUpSuccess({ user, additionalData: { displayName} }))
     } catch(error){
         yield put(signUpFailure(error))
-        yield put(signUpMessage())
     }
 
 }
@@ -102,10 +93,6 @@ export function* onEmailSignInStart(){
     yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail)
 }
 
-export function* onSignInFailure(){
-    yield takeLatest(UserActionTypes.SIGN_IN_FAILURE, displayMessage)
-}
-
 export function* onSignOutStart(){
     yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut )
 }
@@ -115,5 +102,5 @@ export function* onCheckUserSession(){
 }
 
 export function* userSagas(){
-    yield all([call(onGoogleSignInStart), call(onEmailSignInStart), call(isUserAuthenticated), call(onSignOutStart), call(onSignUpStart), call(onSignUpSuccess), call(onSignInFailure)])
+    yield all([call(onGoogleSignInStart), call(onEmailSignInStart), call(isUserAuthenticated), call(onSignOutStart), call(onSignUpStart), call(onSignUpSuccess)])
 }

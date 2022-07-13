@@ -25,11 +25,11 @@ export const CollectionItemDiv = styled.div`
 
 `
 
-const getCollectionItemImage = props => {
-    if(props.imageUrl){
-        return props.imageUrl
-    }
-}
+// const getCollectionItemImage = props => {
+//     if(props.imageUrl){
+//         return props.imageUrl
+//     }
+// }
 
 export const CollectionItemImage = styled.div `
     width: 100%;
@@ -37,7 +37,7 @@ export const CollectionItemImage = styled.div `
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
-    background-image: url( ${ getCollectionItemImage });
+    ${'' /* background-image: url( ${ getCollectionItemImage }); */}
 
     &:hover{
         opacity: 0.8;

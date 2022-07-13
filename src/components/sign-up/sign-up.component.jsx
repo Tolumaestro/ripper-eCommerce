@@ -6,11 +6,11 @@ import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 import { signUpStart } from "../../redux/user/user.actions";
-import { selectUserSignUpError } from "../../redux/user/user.selectors";
+import { selectUserSignUpError, selectUserSignUpStart } from "../../redux/user/user.selectors";
 
 import "./sign-up.styles.scss";
 
-const SignUp = ({ signUpStart, error, done }) => {
+const SignUp = ({ signUpStart, error, start }) => {
 
     const [newUser, setNewUser] = useState({
         displayName:'',
@@ -52,6 +52,7 @@ const SignUp = ({ signUpStart, error, done }) => {
             </h2>
             <span>Sign up with your email and password</span>
             {error || message ? <span className={messageClass}>{ error } { message }</span> : ""}
+            {start && <span className="success">{start}</span> }
             <form className="sign-up-form" onSubmit={handleSubmit}>
                 <FormInput 
                     type="text"
@@ -94,6 +95,7 @@ const SignUp = ({ signUpStart, error, done }) => {
 }
 
 const mapStateToProps = createStructuredSelector({
+    start: selectUserSignUpStart,
     error: selectUserSignUpError
 })
 

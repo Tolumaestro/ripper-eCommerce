@@ -1,4 +1,6 @@
 import React from "react";
+import RenderSmoothImage from 'render-smooth-image-react';
+import 'render-smooth-image-react/build/style.css';
 
 import { connect } from "react-redux";
 
@@ -12,7 +14,9 @@ const CollectionItem = ({ item, addItem }) => {
     const { name, price, imageUrl } = item
     return (
         <CollectionItemDiv>
-            <CollectionItemImage imageUrl={imageUrl} />
+            <CollectionItemImage imageUrl={imageUrl}>
+                <RenderSmoothImage src={imageUrl} alt="alternate-text" objectFit="cover" />
+            </CollectionItemImage>
             <CollectionFooterContainer>
                 <CollectionFooterNameSpan> {name} </CollectionFooterNameSpan>
                 <CollectionFooterPriceSpan> &#8358;{price} </CollectionFooterPriceSpan>

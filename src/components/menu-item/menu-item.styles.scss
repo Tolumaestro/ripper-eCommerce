@@ -1,6 +1,7 @@
 .menu-item {
   min-width: 30%;
   height: 360px;
+  width: 305px;
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -36,6 +37,7 @@
 
   @media screen and (max-width: 800px) {
     height: 250px !important;
+    width: 160px !important
   }
 
   .background-image {

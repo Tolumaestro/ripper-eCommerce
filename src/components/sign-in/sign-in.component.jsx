@@ -7,10 +7,10 @@ import FormInput   from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 import { googleSignInStart, emailSignInStart } from "../../redux/user/user.actions";
-import { selectUserSignInError } from "../../redux/user/user.selectors";
+import { selectUserSignInError, selectUserSignInStart } from "../../redux/user/user.selectors";
 import "./sign-in.styles.scss"
 
-const SignIn = ({ emailSignInStart, googleSignInStart, error}) => {
+const SignIn = ({ emailSignInStart, googleSignInStart, error, start}) => {
 
     const [userCredential, setUserCredential] = useState({ email: '', password: '' });
     const messageClass = "error"
@@ -34,8 +34,9 @@ const SignIn = ({ emailSignInStart, googleSignInStart, error}) => {
     return (
         <div className="sign-in">
             <h2>I already have an account</h2>
-            {error && <span className={messageClass}>{error}</span> }
             <span>Sign in with your email and password</span>
+            {error && <span className={messageClass}>{error}</span> }
+            {start && <span className="success">{start}</span> }
 
             <form onSubmit={handleSubmit}>
                 <FormInput name="email"
@@ -67,6 +68,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart, error}) => {
 }
 
 const mapStateToProps = createStructuredSelector({
+    start: selectUserSignInStart,
     error: selectUserSignInError
 })
 

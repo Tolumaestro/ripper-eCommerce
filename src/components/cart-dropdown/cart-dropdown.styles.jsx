@@ -23,6 +23,7 @@ export const CartItemsContainer = styled.div`
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    --webkit-overflow-scrolling: touch;
 `
 
 export const EmptyMessageSpan = styled.span`

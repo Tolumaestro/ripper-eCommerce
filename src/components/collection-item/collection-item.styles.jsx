@@ -19,7 +19,7 @@ export const CollectionItemDiv = styled.div`
 
     @media screen and (max-width: 800px) {
         width: 40vw;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
 

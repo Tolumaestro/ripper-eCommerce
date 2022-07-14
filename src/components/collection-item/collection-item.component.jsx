@@ -15,7 +15,7 @@ const CollectionItem = ({ item, addItem }) => {
     return (
         <CollectionItemDiv>
             <CollectionItemImage imageUrl={imageUrl}>
-                <RenderSmoothImage src={imageUrl} alt="alternate-text" objectFit="cover" />
+                <RenderSmoothImage src={imageUrl} alt="Item" objectFit="cover" />
             </CollectionItemImage>
             <CollectionFooterContainer>
                 <CollectionFooterNameSpan> {name} </CollectionFooterNameSpan>

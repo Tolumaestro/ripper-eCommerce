@@ -47,7 +47,6 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 
     objectsToAdd.forEach( obj => {
         const newDocRef = collectionRef.doc();
-        console.log(newDocRef);
         batch.set(newDocRef, obj)
     });
 

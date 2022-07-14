@@ -31,27 +31,27 @@ const Payment = ({ total, cartItems, userName, userEmail, dispatch }) => {
           "custom_fields": [
             {
               "display_name":"Name",
-              "variable_name":"Name",
+              "variable_name":"name",
               "value": name
             },
             {
               "display_name":"Phone Number",
-              "variable_name":"Phone Number",
+              "variable_name":"phoneNumber",
               "value": phone
             },
             {
               "display_name":"Address",
-              "variable_name":"Address",
+              "variable_name":"address",
               "value": address
             },
             {
               "display_name":"Info",
-              "variable_name":"Info",
+              "variable_name":"info",
               "value": info
             },
             {
               "display_name":"Cart Items",
-              "variable_name":"Cart Items",
+              "variable_name":"cartItems",
               "value": cartItems
             }
           ]

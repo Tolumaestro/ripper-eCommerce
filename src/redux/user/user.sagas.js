@@ -17,7 +17,6 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData){
             })
         )
     } catch(error){
-        console.log(error);
         yield put(signInFailure(error))
     }
     

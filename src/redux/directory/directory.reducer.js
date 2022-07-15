@@ -2,32 +2,32 @@ const INITIAL_STATE = {
     sections: [
      {
        title: 'caps',
-       imageUrl: "https://drive.google.com/uc?export=view&id=1tLDVeabY1-rVgyYPK3BKMKhV0aT3C7rU",
+       imageUrl: "https://i.ibb.co/Q6KMhRB/image.png",
        id: 1,
        linkUrl: 'shop/caps'
      },
      {
        title: 'shirts',
-       imageUrl: "https://drive.google.com/uc?export=view&id=1JKetSjBXj_ZIToGisYoBGj04hzDsoKxi" ,
+       imageUrl: "https://i.ibb.co/0C48Q8m/uc-export-view-id-1-JKet-Sj-BXj-ZITo-Gis-Yo-BGj04hz-Dso-Kxi.jpg" ,
        id: 2,
        linkUrl: 'shop/shirts'
      },
      {
        title: 'pants',
-       imageUrl: "https://drive.google.com/uc?export=view&id=1tH9gj8OgLsMax-_oz6As6X0_eZEivsdG",
+       imageUrl: "https://i.ibb.co/5Ww8rf7/uc-export-view-id-1t-H9gj8-Og-Ls-Max-oz6-As6-X0-e-ZEivsd-G.jpg",
        id: 3,
        linkUrl: 'shop/pants'
      },
      {
        title: 'womens',
-       imageUrl: "https://drive.google.com/uc?export=view&id=194lnl9uvbCfDiTiqn4GLO8HElWOqStQZ",
+       imageUrl: "https://i.ibb.co/CJq5qsq/0001a4e4-5e65-4dce-8e7e-10df48e22dcc.jpg",
        size: 'large',
        id: 4,
        linkUrl: 'shop/womens'
      },
      {
        title: 'mens',
-       imageUrl: "https://drive.google.com/uc?export=view&id=1WORdbkMMDYHkpmTR6BTu6NHPOgSGDCIn",
+       imageUrl: "https://i.ibb.co/HBvjKdm/image.png",
        size: 'large',
        id: 5,
        linkUrl: 'shop/mens'
